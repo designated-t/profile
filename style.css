@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin-top: 5rem;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: #f4f4f4;
+  color: #333;
+  padding: 0 1rem;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  /* removes underline */
+  color: inherit;
+  /* makes the link use the parent text color */
+  font-weight: inherit;
+  /* optional: keep same font weight as surrounding text */
+}
+
+.hero {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #e2e2e2;
+}
+
+section {
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+#poetry {
+  max-width: 50%;
+  margin: 3rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.project {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #333;
+  color: #fff;
+}
+
+#poetry-cards {
+  display: flex;
+  justify-items: center;
+}
+
+.poem-card {
+  background-color: rgb(238, 238, 238);
+  border-radius: 5%;
+  margin: 1rem;
+  padding: 1rem;
+  width: 30%;
+}
+
+.poem-card:hover {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

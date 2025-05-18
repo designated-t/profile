@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Developer Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <script src="src/script.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <h1>designated-t</h1>
+      <ul>
+        <li><a href="#" role="button" onclick="swapSection('about')">About</a></li>
+        <li><a href="#" role="button" onclick="swapSection('poetry')">Poetry</a></li>
+        <li><a href="#" role="button" onclick="swapSection('contact')">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Hi, I'm André</h2>
+    <p>Back-end Developer | Poetry enthusiast </p>
+  </section>
+
+  <div id="content">
+    <section id="about" hidden>
+      <h2>About Me</h2>
+      <p>I'm a back-end web developer,
+        currently working for BMW Group developing an interface that allows easy access and editing of several items
+        for
+        post-production vehicle-equipment-combinations,
+        verifies data consistency of said edited items with several sources of truth,
+        and creates reports of aggregated information about a particular set of models, and their possible equipments,
+        with all aforementioned items.
+      </p>
+      <br>
+      <p>I mainly work with Java/Kotlin, AWS Services such as DynamoDB, Cloudformation, Lambdas and S3, along with a
+        web
+        of other interfacing AWS systems like SNS or SQS, Github Actions for pipelining, and ArgoCD for Kubernetes
+        management.
+      </p>
+    </section>
+
+    <section id="poetry">
+      <h2>Poetry</h2>
+      <p>Although I do code, this portfolio is actually for my Poetry! I hope you enjoy it</p>
+      <div id="poetry-cards"></div>
+      <div id="poetry-showcase"></div>
+    </section>
+
+    <section id="contact" hidden>
+      <h2>Contact</h2>
+      <p>Email: andrealmeida01e@gmail.com</p>
+      <p>GitHub: <a href="https://github.com/designated-t">github.com/designated-t</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/o-andre-graca">linkedin.com/in/o-andre-graca</a></p>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 André Graça Almeida. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+
+</html>
