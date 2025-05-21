@@ -92,13 +92,13 @@ nav {
     display: flex;
     gap: 1rem;
   }
+}
 
-  a {
-    text-decoration: none;
-    color: inherit;
-    font-weight: inherit;
-    cursor: pointer;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: inherit;
+  cursor: pointer;
 }
 
 .hero {
