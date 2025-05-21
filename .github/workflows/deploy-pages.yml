@@ -23,7 +23,7 @@ jobs:
 
       - name: Create poem file names manifest
         run: |
-          find assets/poems -type f \
+          find assets/poems -type f -exec basename {} \; \
             | jq -R . \
             | jq -s . > manifest.json
 
