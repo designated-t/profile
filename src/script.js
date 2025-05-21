@@ -1,4 +1,5 @@
-const FILE_NAMES = ["The Belated Gift", "Bridled", "The Belated Gift copy", "The Belated Gift copy 2", "The Belated Gift copy 3", "The Belated Gift copy 4", "The Belated Gift copy 5", "The Belated Gift copy 6", "The Belated Gift copy 7"]
+const LOCAL_FILE_NAMES = ["The Belated Gift", "Bridled"]
+const FILE_NAMES = []
 const MAX_LINE_FOR_CARD = 4
 const POEMS_FOLDER_PATH = "assets/poems/"
 

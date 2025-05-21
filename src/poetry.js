@@ -115,6 +115,15 @@ async function loadPoemCardElements() {
 
 document.addEventListener('DOMContentLoaded', async () => {
 
+    // This block locally loads a default from LOCAL_FILE_NAMES in script.js
+    // Otherwise, manifest.json contains all file names in ./assets/poems/
+    await fetch("manifest.json")
+        .then(response => {
+            if (!response.ok) return LOCAL_FILE_NAMES
+            else return response.json().then()
+        })
+        .then(data => FILE_NAMES.push(...data))
+
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
