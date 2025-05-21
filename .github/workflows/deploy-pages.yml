@@ -21,6 +21,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
+      - name: Create poem file names manifest
+        run: |
+          find assets/poems -type f \
+            | jq -R . \
+            | jq -s . > manifest.json
+
       - name: Upload static files
         uses: actions/upload-pages-artifact@v3.0.1
         with:
