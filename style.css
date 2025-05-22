@@ -43,12 +43,13 @@ body {
       #poetry,
       #poetry-showcase {
         width: 100%;
+        min-height: 60vh;
         padding: 3rem;
         border-radius: 2em;
         background: #e2e2e2;
         background: linear-gradient(to bottom, #e2e2e2 0%, transparent 100%);
         background-repeat: no-repeat;
-        background-size: 100% 30em;
+        background-size: 100% 60vh;
 
         #poetry-cards {
           display: flex;
