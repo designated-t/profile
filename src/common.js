@@ -1,5 +1,3 @@
-
-
 function createElementWithId(elementType, id) {
     const element = document.createElement(elementType)
     if (id) element.id = id

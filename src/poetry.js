@@ -1,3 +1,5 @@
+const CARD_DISPLAY_DELAY = 300
+
 const poetryStorage = {}
 const poemCardStorage = []
 
@@ -30,22 +32,23 @@ function createPoemElementAndCard(text, fileName) {
     const poemElementCard = createElementWithId('div')
     const poemTitleElement = createElementWithText('h4', fileName)
     poemElementCard.appendChild(poemTitleElement)
-
+    let textContent = ""
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i]
-        if (line == "" || i == MAX_LINE_FOR_CARD) break
-
-        const lineElement = createElementWithText("p", line)
-        poemElementCard.appendChild(lineElement)
+        if (shouldStopWritingLines(line, i)) {
+            textContent += "..."
+            break
+        }
+        textContent += `${line}\n`
     }
 
-    const etcLineElement = createElementWithText("p", "...")
-    poemElementCard.append(etcLineElement)
+    poemElementCard.append(createElementWithText("p", textContent))
 
     const anchorElement = createElementWithId("a")
     anchorElement.appendChild(poemElementCard)
     anchorElement.role = "button"
     anchorElement.classList.add("poem-card")
+    anchorElement.href = "#"
     anchorElement.onclick = () => expandShowcase(fileName)
 
     anchorElement.classList.add("fade-in");
@@ -59,13 +62,10 @@ function createAndSavePoemElement(lines, fileName) {
     const poemTitleElement = createElementWithText('h2', fileName)
     poemElement.appendChild(poemTitleElement)
 
-    const formattedLines = []
-    lines.forEach(line => {
-        formattedLines.push(createElementWithText("p", line))
-        if (line == "") formattedLines.push(createElement("br"))
-    });
+    let textContent = ""
+    lines.forEach(line => textContent += `${line}\n`);
 
-    poemElement.append(...formattedLines)
+    poemElement.append(createElementWithText("p", textContent))
 
     poetryStorage[poemTitleElement.textContent] = poemElement
 }
@@ -77,16 +77,8 @@ async function expandShowcase(fileName) {
     else showElement(showcaseElement, fileName)
 }
 
-async function loadPoemCardElements() {
-    const poetryCardsElement = document.getElementById('poetry-cards')
-
-    for (const card of poemCardStorage) {
-        console.log(card)
-        poetryCardsElement.appendChild(card)
-        await sleep(200)
-    }
-
-    console.log(`✅ Poems Section Loaded!`);
+function shouldStopWritingLines(line, index) {
+    return index >= MAX_LINE_FOR_CARD || (line == "" && index > 4)
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -100,14 +92,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
         .then(data => FILE_NAMES.push(...data))
         .then(() => generatePoetryHTML())
-        .then(() => FILE_NAMES.forEach(fileName => {
+        .then(() => Promise.all(FILE_NAMES.map(async fileName => {
             const filePath = `${POEMS_FOLDER_PATH}${fileName}`
-            fetch(filePath)
+            return fetch(filePath)
                 .then(response => response.text())
                 .then(text => createPoemElementAndCard(text, fileName))
                 .then(poemCard => {
+                    poemCard.hidden = true
                     document.getElementById('poetry-cards').append(poemCard)
                 })
-        }))
+        })))
+        .then(async () => {
+            const cards = document.getElementById('poetry-cards').childNodes
+            for (const card of cards) {
+                card.hidden = false
+                await sleep(CARD_DISPLAY_DELAY)
+            }
+        })
 
 });
