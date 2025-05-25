@@ -81,6 +81,29 @@ body {
         background-repeat: no-repeat;
         background-size: 100% 60vh;
 
+        #poetry-filter {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 1em;
+          gap: 1em;
+        }
+
+        .filter-toggle-btn {
+          border-radius: 1em;
+          padding: 0.7rem;
+          background-color: var(--4_element_bg);
+          border: none;
+          cursor: pointer;
+        }
+
+        .filter-toggle-btn:hover {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-toggle-btn.active {
+          background-color: var(--4_on_hover);
+        }
+
         #poetry-cards {
           display: flex;
           flex-wrap: wrap;
@@ -97,7 +120,6 @@ body {
           }
 
           .poem-card:hover {
-            background-color: var(--4_on_hover);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
           }

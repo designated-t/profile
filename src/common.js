@@ -1,11 +1,11 @@
 function createElementWithId(elementType, id) {
-    const element = document.createElement(elementType)
+    const element = createElement(elementType)
     if (id) element.id = id
     return element
 }
 
 function createElementWithText(elementType, textContent) {
-    const element = document.createElement(elementType)
+    const element = createElement(elementType)
     if (textContent) element.textContent = textContent
     return element
 }
@@ -21,7 +21,7 @@ function showElement(el, fileName) {
     el.hidden = false
 }
 
-function hideElement(el, fileName) {
+function hideAndReShowElement(el, fileName) {
     el.classList.remove("fade-in")
     el.classList.add("fade-out")
 
