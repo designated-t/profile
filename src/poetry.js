@@ -35,12 +35,13 @@ function generatePoetryHTML() {
 }
 
 function createPoemElementAndCard(text, fileName) {
-    const lines = text.split(/\r?\n/);
-    createAndSavePoemElement(lines, fileName)
+    createAndSavePoemElement(text, fileName)
 
     const poemElementCard = createElementWithId('div')
     const poemTitleElement = createElementWithText('h4', fileName)
     poemElementCard.appendChild(poemTitleElement)
+    
+    const lines = text.split(/\r?\n/);
     let textContent = ''
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i]
@@ -64,17 +65,14 @@ function createPoemElementAndCard(text, fileName) {
     return anchorElement
 }
 
-function createAndSavePoemElement(lines, fileName) {
+function createAndSavePoemElement(text, fileName) {
     const poemElement = document.createElement('div')
     poemElement.classList.add('poem')
 
     const poemTitleElement = createElementWithText('h2', fileName)
     poemElement.appendChild(poemTitleElement)
 
-    let textContent = ''
-    lines.forEach(line => textContent += `${line}\n`);
-
-    poemElement.append(createElementWithText('p', textContent))
+    poemElement.append(createElementWithText('p', text))
 
     poetryStorage[poemTitleElement.textContent] = poemElement
 }

@@ -27,6 +27,13 @@
   --6_element_bg: #cfcfcf;
   --6_on_hover: rgb(245, 245, 245);
   --6_header_footer_bg: #333;
+  --7_page_bg: #ffd6d8;
+  --7_element_bg: #fab9b9;
+  --7_on_hover: #d39c97;
+  --7_primary_text: #333333;
+  --7_shadows_borders: #c5888a;
+  --7_nav_grad_from: #816769;
+  --7_nav_grad_to: #9b787a;
 }
 
 * {
@@ -40,8 +47,10 @@ body {
   margin-top: 5rem;
   font-family: 'Times New Roman', Times, serif;
   line-height: 1.6;
-  background: var(--4_page_bg);
-  color: #333;
+  background-image: url('/assets/peaches.png');
+  background-color: rgba(255, 214, 216, 1);
+  background-repeat: repeat;
+  color: var(--7_primary_text);
   padding: 0 1rem;
 
   header {
@@ -50,15 +59,15 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: var(--4_header_footer_bg);
-    color: #fff;
+    background: linear-gradient(to right, var(--7_nav_grad_from), var(--7_nav_grad_to));
+    color: var(--7_primary_text);
     padding: 1rem 0;
   }
 
   section {
     max-width: 800px;
     margin: 2rem auto;
-    background: var(--4_element_bg);
+    background: var(--7_element_bg);
   }
 
   #content {
@@ -74,12 +83,12 @@ body {
       #poetry,
       #poetry-showcase {
         width: 100%;
-        min-height: 60vh;
         padding: 3rem;
         border-radius: 2em;
-        background: linear-gradient(to bottom, var(--4_element_bg) 0%, transparent 100%);
-        background-repeat: no-repeat;
-        background-size: 100% 60vh;
+        background: linear-gradient(to bottom,
+            rgba(250, 185, 185, .8) 0%,
+            rgba(250, 185, 185, .2) 60vh,
+            rgba(250, 185, 185, .2) 100%);
 
         #poetry-filter {
           display: flex;
@@ -91,17 +100,17 @@ body {
         .filter-toggle-btn {
           border-radius: 1em;
           padding: 0.7rem;
-          background-color: var(--4_element_bg);
+          background-color: var(--7_element_bg);
           border: none;
           cursor: pointer;
         }
 
         .filter-toggle-btn:hover {
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 8px var(--7_shadows_borders);
         }
 
         .filter-toggle-btn.active {
-          background-color: var(--4_on_hover);
+          background-color: var(--7_on_hover);
         }
 
         #poetry-cards {
@@ -109,7 +118,7 @@ body {
           flex-wrap: wrap;
 
           .poem-card {
-            background-color: var(--4_element_bg);
+            background-color: var(--7_element_bg);
             border-radius: 1em;
             margin: 1rem;
             padding: 1rem;
@@ -120,7 +129,7 @@ body {
           }
 
           .poem-card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px var(--7_shadows_borders);
             cursor: pointer;
           }
         }
@@ -163,7 +172,7 @@ a {
 .hero {
   text-align: center;
   padding: 2rem 1rem;
-  background: var(--4_element_bg);
+  background: var(--7_element_bg);
   border-radius: 2em;
 }
 
@@ -175,7 +184,7 @@ h2 {
 footer {
   text-align: center;
   padding: 1rem;
-  background: var(--4_header_footer_bg);
+  background: linear-gradient(to right, var(--7_nav_grad_from), var(--7_nav_grad_to));
   color: #fff;
 }
 
