@@ -4,7 +4,6 @@ const poemCardController = new AbortController();
 let shouldStopLoadingCards = false
 
 const poetryStorage = {}
-const poemCardStorage = []
 
 
 function generatePoetryHTML() {
@@ -19,12 +18,11 @@ function generatePoetryHTML() {
 
     poetryTitleElement.append(h2Element, pElement)
 
-    // Filter section
-    const poetryFilterElement = createAndPopulateFilterElement()
+    const poemSearchElement = createSearchElement()
 
     // Content section
     const poetryCardsElement = createElementWithId('div', 'poetry-cards')
-    poetryElement.append(poetryTitleElement, poetryFilterElement, poetryCardsElement)
+    poetryElement.append(poetryTitleElement, poemSearchElement, poetryCardsElement)
 
     const poetryShowcaseElement = createElementWithId('section', 'poetry-showcase')
     poetryShowcaseElement.hidden = true
@@ -35,12 +33,13 @@ function generatePoetryHTML() {
 }
 
 function createPoemElementAndCard(text, fileName) {
-    createAndSavePoemElement(text, fileName)
+    const poemElement = createPoemElement(text, fileName)
+    poetryStorage[fileName] = poemElement
 
     const poemElementCard = createElementWithId('div')
     const poemTitleElement = createElementWithText('h4', fileName)
     poemElementCard.appendChild(poemTitleElement)
-    
+
     const lines = text.split(/\r?\n/);
     let textContent = ''
     for (let i = 0; i < lines.length; i++) {
@@ -65,7 +64,7 @@ function createPoemElementAndCard(text, fileName) {
     return anchorElement
 }
 
-function createAndSavePoemElement(text, fileName) {
+function createPoemElement(text, fileName) {
     const poemElement = document.createElement('div')
     poemElement.classList.add('poem')
 
@@ -74,7 +73,7 @@ function createAndSavePoemElement(text, fileName) {
 
     poemElement.append(createElementWithText('p', text))
 
-    poetryStorage[poemTitleElement.textContent] = poemElement
+    return poemElement
 }
 
 async function expandShowcase(fileName) {
@@ -88,56 +87,23 @@ function shouldStopWritingLines(line, index) {
     return index >= MAX_LINE_FOR_CARD || (line == '' && index > 4)
 }
 
-function createAndPopulateFilterElement() {
-    const poetryFilterElement = createElementWithId('div', 'poetry-filter')
-    const filterLimits = [
-        ['A', 'F'],
-        ['G', 'L'],
-        ['M', 'R'],
-        ['S', 'Z']
-    ]
-
-
-    const buttonClass = "filter-toggle-btn"
-
-    filterLimits.forEach((pair, index) => {
-        const [fromLetter, toLetter] = pair
-        const buttonElement = createElementWithText('button', `${fromLetter}-${toLetter}`)
-        buttonElement.classList.add(buttonClass)
-        buttonElement.id = `filter-button-${index}`
-
-        buttonElement.addEventListener('click', () => {
-            shouldStopLoadingCards = true
-            poetryFilterElement.childNodes.forEach(b => { if (b != buttonElement) b.classList.remove('active') });
-            buttonElement.classList.toggle('active')
-
-            poetryFilterElement.querySelector(".active") == null ? handlePoemFilteringAction("A", "Z") : handlePoemFilteringAction(fromLetter, toLetter)
+function createSearchElement() {
+    const poetrySearchElement = createElementWithId('input', 'poetry-search')
+    poetrySearchElement.placeholder = "Search for poems..."
+    
+    poetrySearchElement.addEventListener("input", async (event) => {
+        shouldStopLoadingCards = true
+        const poetryCardsElement = document.getElementById("poetry-cards")
+        poetryCardsElement.childNodes.forEach((node) => node.hidden = true)
+        await sleep(1)
+        poetryCardsElement.childNodes.forEach((node) => {
+            const titleElement = node.childNodes[0]
+            if (titleElement.textContent.toLowerCase().includes(event.target.value.toLowerCase()))
+                node.hidden = false
         })
-
-        poetryFilterElement.append(buttonElement)
     })
 
-    return poetryFilterElement
-}
-
-async function handlePoemFilteringAction(fromLetter, toLetter) {
-    const poetryCardsElement = document.getElementById('poetry-cards')
-    const possibleCharacters = ALPHABET.substring(ALPHABET.indexOf(fromLetter), ALPHABET.indexOf(toLetter) + 1)
-    console.log("handlingFilter")
-
-    // So that fadeIn animation plays when all relevant elements are shown
-    poetryCardsElement.childNodes.forEach(element => element.hidden = true)
-    // Fix for pressing same filter twice and elements not playing fadeIn animation. Very strange interaction
-    await sleep(1)
-
-    poetryCardsElement.childNodes.forEach(element => {
-        element.hidden = !possibleCharacters.includes(
-            element             // <a>
-                .childNodes[0]  // <div>
-                .childNodes[0]  // <h4>
-                .textContent[0]
-        )
-    })
+    return poetrySearchElement
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
