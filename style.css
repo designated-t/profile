@@ -47,7 +47,7 @@ body {
   margin-top: 5rem;
   font-family: 'Times New Roman', Times, serif;
   line-height: 1.6;
-  background-image: url('/assets/peaches.png');
+  background-image: url('./assets/peaches.png');
   background-color: rgba(255, 214, 216, 1);
   background-repeat: repeat;
   color: var(--7_primary_text);
