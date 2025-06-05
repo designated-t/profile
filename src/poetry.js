@@ -1,6 +1,5 @@
 const CARD_DISPLAY_DELAY = 300
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const poemCardController = new AbortController();
 let shouldStopLoadingCards = false
 
 const poetryStorage = {}
@@ -109,7 +108,7 @@ function createSearchElement() {
 document.addEventListener('DOMContentLoaded', async () => {
     // This block locally loads a default from LOCAL_FILE_NAMES in script.js
     // Otherwise, manifest.json contains all file names in ./assets/poems/
-    await fetch('manifest.json', { signal: poemCardController.signal })
+    await fetch('manifest.json')
         .then(response => {
             if (!response.ok) return LOCAL_FILE_NAMES
             else return response.json().then()
@@ -137,5 +136,4 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (shouldStopLoadingCards) break;
             }
         })
-
 });
